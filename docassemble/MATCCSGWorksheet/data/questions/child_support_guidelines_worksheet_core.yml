@@ -268,7 +268,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 2
@@ -276,7 +275,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 2
@@ -284,7 +282,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 3
@@ -292,7 +289,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 3
@@ -300,7 +296,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 4
@@ -308,7 +303,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 4
@@ -316,7 +310,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 5
@@ -324,7 +317,6 @@ fields:
     datatype: currency
     min: 0
     default: 0
-    required: False
     show if:
       code: |
         number_of_children_eligible >= 5
