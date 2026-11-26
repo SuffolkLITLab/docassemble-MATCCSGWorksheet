@@ -191,7 +191,7 @@ fields:
 id: social security dependency benefits
 section: csg_income
 question: |
-  Do any children receive Social Security dependency benefits?
+  Do any children get Social Security dependency benefits?
 subquestion: |
   ${ collapse_template(dependency_benefit_explanation) }
 fields:
@@ -203,11 +203,11 @@ fields:
       - ${ users[0].name.first }: user
       - ${ users[1].name.first }: other_party
     show if: social_security_dependency_benefits_yes
-  - Weekly amount ${ users[0].name.first } actually receives: users[0].social_security_dependency_benefit_amount
+  - Weekly amount ${ users[0].name.first } actually gets: users[0].social_security_dependency_benefit_amount
     datatype: currency
     min: 0
     show if: social_security_dependency_benefits_yes
-  - Weekly amount ${ users[1].name.first } actually receives: users[1].social_security_dependency_benefit_amount
+  - Weekly amount ${ users[1].name.first } actually gets: users[1].social_security_dependency_benefit_amount
     datatype: currency
     min: 0
     show if: social_security_dependency_benefits_yes
