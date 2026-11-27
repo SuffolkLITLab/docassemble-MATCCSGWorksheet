@@ -53,6 +53,14 @@ question: |
   What is the parenting arrangement?
 subquestion: |
   Choose the option that best describes your situation.
+
+  **Why we ask:** the Child Support Guidelines start from a schedule where the
+  children live mainly with one parent and spend about one-third of the time
+  with the other. Your answer tells the worksheet whether you share time about
+  equally, the children live mainly with one parent, or each parent has at
+  least one child mainly with them. If the time is well below or well above
+  one-third, the judge can adjust the amount (2025 Child Support Guidelines
+  § II.D).
 field: parenting_box
 datatype: radio
 choices:
@@ -179,14 +187,45 @@ code: |
 id: gross weekly income
 section: csg_income
 question: |
-  What is each parent's gross weekly income?
+  What is each parent's gross income?
+subquestion: |
+  **Gross income** is income before taxes and other deductions are taken out.
+  Enter the amount from one paycheck or statement, then choose how often it is
+  paid. The worksheet converts it to a weekly amount.
+
+  If you don't know an exact amount, use your most recent number, or average a
+  few recent statements. A good-faith estimate is better than leaving it blank.
 fields:
-  - ${ users[0].name.first }'s gross weekly income: users[0].gross_weekly_income_amount
+  - ${ users[0].name.first }'s gross income: users[0].gross_income_amount
     datatype: currency
     min: 0
-  - ${ users[1].name.first }'s gross weekly income: users[1].gross_weekly_income_amount
+  - How often?: users[0].gross_income_frequency
+    datatype: dropdown
+    choices:
+      - Every week: "52"
+      - Every two weeks: "26"
+      - Twice a month: "24"
+      - Every month: "12"
+      - Every year: "1"
+    default: "52"
+  - ${ users[1].name.first }'s gross income: users[1].gross_income_amount
     datatype: currency
     min: 0
+  - How often?: users[1].gross_income_frequency
+    datatype: dropdown
+    choices:
+      - Every week: "52"
+      - Every two weeks: "26"
+      - Twice a month: "24"
+      - Every month: "12"
+      - Every year: "1"
+    default: "52"
+---
+code: |
+  # The worksheet works in weekly amounts.
+  users[i].gross_weekly_income_amount = round(
+    float(users[i].gross_income_amount) * int(users[i].gross_income_frequency) / 52, 2
+  )
 ---
 id: social security dependency benefits
 section: csg_income
@@ -975,7 +1014,11 @@ review:
       First parent: ${ users[0].name.first }
 
       Second parent: ${ users[1].name.first }
-  - Edit: users[0].gross_weekly_income_amount
+  - Edit:
+      - users[0].gross_income_amount
+      - recompute:
+          - users[0].gross_weekly_income_amount
+          - users[1].gross_weekly_income_amount
     button: |
       **Gross weekly income**
 
